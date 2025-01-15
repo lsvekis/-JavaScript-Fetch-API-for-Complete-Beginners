@@ -1,0 +1,22 @@
+fetch('https://example.com/api/endpoint', {
+  method: 'POST',              // Tells the server we're sending data
+  headers: {
+    'Content-Type': 'application/json'  // Informs the server we're sending JSON
+  },
+  body: JSON.stringify({       // The request body, which must be a string
+    name: 'John Doe',
+    age: 30
+  })
+})
+  .then(response => {
+    // Handle the response from the server
+    return response.json();    // Parse the JSON response
+  })
+  .then(data => {
+    // 'data' is the server’s response object
+    console.log('Server Response:', data);
+  })
+  .catch(error => {
+    // Catch any network errors or thrown errors
+    console.error('Error:', error);
+  });
