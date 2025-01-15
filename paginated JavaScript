@@ -1,0 +1,13 @@
+const page = 1;
+const limit = 10; // Number of items per page
+const paginatedUrl = `https://api.example.com/users?page=${page}&limit=${limit}`;
+
+fetch(paginatedUrl)
+  .then(response => response.json())
+  .then(data => {
+    // Process data.items (or whatever property holds your items)
+    console.log(`Users on Page ${page}:`, data.items);
+    // Optionally, look at data.total_pages or data.next_page for navigation.
+  })
+  .catch(error => console.error('Error:', error));
+
