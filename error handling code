@@ -1,0 +1,37 @@
+// detailed-error-handling.js
+async function getData(url) {
+  try {
+    const response = await fetch(url);
+
+    // Check for HTTP errors
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error('Resource not found (404).');
+      } else if (response.status >= 500) {
+        throw new Error('Server error. Please try again later.');
+      } else {
+        throw new Error(`Unexpected error: ${response.status}`);
+      }
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    // Log error and optionally rethrow or return a default value
+    console.error('Error fetching data:', error.message);
+    return null;
+  }
+}
+
+// Usage example with async/await
+async function displayData() {
+  const data = await getData('https://jsonplaceholder.typicode.com/posts/1');
+  if (data) {
+    console.log('Post Data:', data);
+  } else {
+    console.log('Failed to fetch data.');
+  }
+}
+
+// Call the function to display data
+displayData();
