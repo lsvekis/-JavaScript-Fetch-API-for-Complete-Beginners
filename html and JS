@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User List</title>
+  <!-- Optional: Link to a CSS file or include inline styles -->
+  <style>
+    /* Basic styling for the container and user list */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    #userList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .user-item {
+      background-color: #f7f7f7;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      width: 200px;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .user-item h2 {
+      font-size: 1.1rem;
+      margin: 0 0 10px;
+    }
+
+    .user-item p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>List of Users</h1>
+  <!-- An unordered list that will hold our user items -->
+  <ul id="userList"></ul>
+
+  <!-- Include your JavaScript at the end of the body -->
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const userList = document.getElementById('userList');
+
+  // Fetch user data from JSONPlaceholder
+  fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error fetching users: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(users => {
+      // For each user, create a list item and append it to the userList
+      users.forEach(user => {
+        const listItem = document.createElement('li');
+        listItem.className = 'user-item';
+
+        listItem.innerHTML = `
+          <h2>${user.name}</h2>
+          <p><strong>Username:</strong> ${user.username}</p>
+          <p><strong>Email:</strong> ${user.email}</p>
+        `;
+
+        userList.appendChild(listItem);
+      });
+    })
+    .catch(error => {
+      console.error('Failed to fetch user data:', error.message);
+      userList.innerHTML = `<li>Oops! Something went wrong while fetching users.</li>`;
+    });
+});
+
