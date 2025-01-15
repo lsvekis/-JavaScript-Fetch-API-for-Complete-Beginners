@@ -1,0 +1,19 @@
+fetch('https://jsonplaceholder.typicode.com/posts', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    title: 'My New Post',
+    body: 'Hello, world!',
+    userId: 123
+  })
+})
+  .then(response => response.json())
+  .then(createdPost => {
+    console.log('Created Post:', createdPost);
+    // Expected response includes an "id" property (e.g., id: 101)
+  })
+  .catch(error => {
+    console.error('Error creating post:', error);
+  });
