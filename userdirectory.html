@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Directory</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .container { max-width: 800px; margin: auto; }
+    h1 { text-align: center; }
+    #loading { text-align: center; font-size: 1.2rem; }
+    #error { color: red; text-align: center; }
+    #searchBox { width: 100%; padding: 10px; margin-bottom: 20px; }
+    .user-card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>User Directory</h1>
+    <input type="text" id="searchBox" placeholder="Search by name or username..." />
+    <div id="loading">Loading users...</div>
+    <div id="error"></div>
+    <div id="userDirectory"></div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
