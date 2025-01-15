@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Data Fetch</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #data {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background-color: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    #error {
+      margin-top: 20px;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>API Data Fetch Example</h1>
+  <button id="fetchData">Fetch Data</button>
+  <div id="data"></div>
+  <div id="error"></div>
+
+  <script>
+    document.getElementById('fetchData').addEventListener('click', () => {
+      const dataContainer = document.getElementById('data');
+      const errorContainer = document.getElementById('error');
+
+      // Clear previous data and errors
+      dataContainer.textContent = '';
+      errorContainer.textContent = '';
+
+      fetch('https://api.example.com/data')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(parsedData => {
+          dataContainer.textContent = JSON.stringify(parsedData, null, 2);
+        })
+        .catch(error => {
+          errorContainer.textContent = `Error fetching data: ${error.message}`;
+        });
+    });
+  </script>
+</body>
+</html>
