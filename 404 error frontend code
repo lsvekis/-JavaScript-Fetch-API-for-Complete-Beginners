@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fetch API Error Handling</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #result {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background-color: #f4f4f4;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    #error {
+      margin-top: 20px;
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fetch API Error Handling Example</h1>
+  <button id="fetchData">Fetch Data</button>
+  <div id="result"></div>
+  <div id="error"></div>
+
+  <script>
+    document.getElementById('fetchData').addEventListener('click', () => {
+      const resultDiv = document.getElementById('result');
+      const errorDiv = document.getElementById('error');
+
+      // Clear previous results and errors
+      resultDiv.textContent = '';
+      errorDiv.textContent = '';
+
+      fetch('https://jsonplaceholder.typicode.com/posts/99999') // Likely a 404
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          resultDiv.textContent = `Data fetched successfully:\\n${JSON.stringify(data, null, 2)}`;
+        })
+        .catch(error => {
+          errorDiv.textContent = `Error: ${error.message}`;
+        });
+    });
+  </script>
+</body>
+</html>
